@@ -1,3 +1,8 @@
+import (
+	"fmt"
+	"math"
+)
+
 func isPrime(n int) bool {
 	if n < 2 {
 		return false

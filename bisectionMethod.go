@@ -1,3 +1,7 @@
+import (
+	"fmt"
+)
+
 func f(x float64) float64 {
 	return x*x*x - x - 2
 }
