@@ -1,37 +1,34 @@
 import "fmt"
 
-func gaussianElimination(a [][]float64) []float64 {
-	n := len(a)
+func determinant(matrix [][]float64) float64 {
+	n := len(matrix)
+	det := 1.0
 
 	for i := 0; i < n; i++ {
 
-		divider := a[i][i]
-		for j := 0; j <= n; j++ {
-			a[i][j] /= divider
+		pivot := matrix[i][i]
+
+		if pivot == 0 {
+			return 0
 		}
 
 		for k := i + 1; k < n; k++ {
-			factor := a[k][i]
+			factor := matrix[k][i] / pivot
 
-			for j := 0; j <= n; j++ {
-				a[k][j] -= factor * a[i][j]
+			for j := i; j < n; j++ {
+				matrix[k][j] -= factor * matrix[i][j]
 			}
 		}
+
+		det *= pivot
 	}
 
-	x := make([]float64, n)
-
-	for i := n - 1; i >= 0; i-- {
-		x[i] = a[i][n]
-
-		for j := i + 1; j < n; j++ {
-			x[i] -= a[i][j] * x[j]
+	for _, row := range matrix {
+		for _, value := range row {
+			fmt.Printf("%8.2f ", value)
 		}
+		fmt.Println()
 	}
 
-	for i, v := range x {
-		fmt.Printf("x%d = %.2f\n", i+1, v)
-	}
-
-	return x
+	return det
 }
